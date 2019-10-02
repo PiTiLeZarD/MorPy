@@ -14,5 +14,10 @@ pip install numpy
 
 ```
 ./play.py some morse code
-export WPM=50 && ./play.py some morse code
+```
+
+With options:
+
+```
+export PITCH=600 && export WPM=20 && export FARNSWORTH=12 && ./play.py some morse code
 ```
