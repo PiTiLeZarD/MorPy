@@ -1,5 +1,4 @@
-from const import DIT
-from const import DAH
+from const import DIT, DAH
 
 
 code = {

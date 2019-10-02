@@ -1,19 +1,25 @@
 import time
+import operator
+import functools
 from const import DOT_SPACE, LETTER_SPACE, WORD_SPACE, WPM, FARNSWORTH
-from output import beep
+from output import play_notes
 
-def wpmtime(t, wpm):
-    return t * (60.0 / (50.0 * wpm))
 
-def play_letter(letter):
-    for dot in letter:
-        beep(wpmtime(dot, WPM))
-        time.sleep(wpmtime(DOT_SPACE, WPM))
-    time.sleep(wpmtime(LETTER_SPACE, FARNSWORTH or WPM))
+def insert_spaces(notes, space):
+    for i in range(len(notes)):
+        notes.insert(i*2, space)
+    return notes
 
-def play_word(word):
-    [ play_letter(letter) for letter in word ]
-    time.sleep(wpmtime(WORD_SPACE, FARNSWORTH or WPM))
+def get_letter(letter, code):
+    return insert_spaces(code[letter].copy(), DOT_SPACE)
+
+def get_word(word, code):
+    notes = [get_letter(letter, code) for letter in list(word)]
+    return insert_spaces(notes, LETTER_SPACE)
 
 def play_string(string, code):
-    [play_word([ code[l] for l in word ]) for word in string.split()]
+    for word in string.split(' '):
+        play_notes(get_word(word, code))
+        time.sleep(WORD_SPACE)
+
+

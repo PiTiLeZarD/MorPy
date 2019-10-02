@@ -5,6 +5,6 @@ import sys
 from codes.sanitizer import sanitize
 from codes.intl import code
 
-string = " ".join(sys.argv[1:])
+string = " ".join([sanitize(a, code) for a in sys.argv[1:]])
 
-play_string(sanitize(string, code), code)
+play_string(string, code)
